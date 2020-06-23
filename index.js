@@ -7,13 +7,14 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 require("dotenv").config();
 
+
 const cors = require('cors')
 app.use(cors({
     credentials: true,
     origin: ['http://localhost:3000']
 }))
 
-let MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/'
+let MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/hoopitapp'
 app.use(
   session({
     secret: 'my-secret-weapon',
@@ -51,20 +52,21 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 //Register routes
-const mainRoutes = require('./routes/routes');
-app.use('/api', mainRoutes);
+const routes = require('./routes/routes');
+app.use('/', routes);
 
 const authRoutes = require('./routes/auth.routes')
-app.use('/api', authRoutes);
+app.use('/', authRoutes);
+
 
 //FOR IMAGE UPLOADS
-const fileUploads = require('./routes/file-upload.routes')
-app.use('/api', fileUploads)
+// const fileUploads = require('./routes/file-upload.routes')
+// app.use('/', fileUploads)
 
-app.use((req, res, next) => {
-  // If no routes match, send them the React HTML.
-  res.sendFile(__dirname + "/public/index.html");
-});
+// app.use((req, res, next) => {
+//   // If no routes match, send them the React HTML.
+//   res.sendFile(__dirname + "/public/index.html");
+// });
 
 //Start the server to begin listening on a port
 // make sure you don't run it on port 3000 because 

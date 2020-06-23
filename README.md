@@ -143,7 +143,7 @@ gamesPlayed - Number
 - GET /
 - GET /auth/signup
 - POST /auth/signup
-    body:
+    - body:
         - username
         - email
         - password
@@ -151,43 +151,42 @@ gamesPlayed - Number
         - imageUrl
 - GET /auth/login   
 - POST /auth/login
-    body:
+    - body:
         - username
         - password
 - POST /auth/logout
-    body: (empty)
+    - body: (empty)
 - GET /:userId    
 - GET /user/join-game
 - POST /user/join-game
-    body:
+    - body:
         - name
 - GET /user/create-game
 - POST /user/create-game
-    body:
+    - body:
         - date
         - location
-        - type
-        - structure
-    reference: 
+    - reference: 
         - createdBy [ObjectId<User>]   
 - GET /game/:id
 - GET /user/team-detail
 - POST /user/create-team
-    body:
+    - body:
         - date
         - homeTown
-    reference: 
+    - reference: 
         - owner [ObjectId<User>]  
         - players [ObjectId<Users>]
 - GET /user/teams
 - GET /user/profile
 - POST /user/profile
-    body: 
+    - body: 
         - username 
         - email 
         - password 
         - imageUrl 
         - location 
+    - reference: 
         - gamesCreated 
         - gamesPlayed   
 - GET /forum
