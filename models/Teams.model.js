@@ -1,17 +1,16 @@
 const mongoose = require('mongoose');
 
 let TeamSchema = new mongoose.Schema({
-    owner: {
-
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"User"
-    },
+    owner: String,
     teamName: String,
     homeTown: String,
     gamesPlayed: Number,
-    players: [String]
+    players: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+      }]
 })
 
-let TodoModel = mongoose.model('Game', GameSchema)
+let TeamsModel = mongoose.model('Team', TeamSchema)
 
-module.exports = TodoModel;
+module.exports = TeamsModel;

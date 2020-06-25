@@ -6,7 +6,10 @@ let GameSchema = new mongoose.Schema({
     location: String,
     city: String,
     completed: Boolean,
-    players: [String],
+    players: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+      }],
     maxPlayers: Number
 })
 

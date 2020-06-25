@@ -49,7 +49,7 @@ router.post('/sign-up', (req, res) => {
                 //SET SESSION
                 req.session.loggedInUser = user;
                 //
-                console.log(req.session)
+                // console.log(req.session)
                 //SEND JSON BACK
                 res.status(200).json(user);
               })
@@ -140,6 +140,7 @@ router.post('/logout', (req, res) => {
 //NEEDED FOR REFRESHING PAGE AND KEEPING STATE
 router.get("/user", isLoggedIn, (req, res, next) => {
   res.status(200).json(req.session.loggedInUser);
+  console.log(res)
 });
 
   module.exports = router;
