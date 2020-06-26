@@ -151,12 +151,12 @@ router.get('/teams', isLoggedIn, (req, res) => {
 })         
 
 })
-
+ //QUIT TEAM
 router.post('/quit-team/:id', isLoggedIn, (req, res) => {
     let id = req.params.id
-    let user = req.session.loggedInUser._id
-    console.log(id, user)
-    TeamsModel.findByIdAndUpdate(id, {$pull: {players : [user]}})
+    let userId = req.session.loggedInUser._id
+    // console.log(id, user)
+    TeamsModel.update({_id: id}, {$pull: {players : userId}})
         .then((response)=> {
             // console.log(newTeam + '  NewTEAM!!!!')
             res.status(200).json(response)
@@ -166,6 +166,25 @@ router.post('/quit-team/:id', isLoggedIn, (req, res) => {
                  error: 'Something went wrong Deleting User from Team',
                  message: err
             })
+        })
+})
+
+//QUIT GAME
+router.get('/quit-game/:id', isLoggedIn, (req, res) => {
+    let id = req.params.id
+    let userId = req.session.loggedInUser._id
+    // console.log(id, user)
+    GamesModel.update({_id: id}, {$pull: {players : userId}})
+        .then((response)=> {
+             console.log(newGame + '  New Game!!!!')
+            res.status(200).json(response)
+        })
+        .catch((err) => {
+            res.status(500).json({
+                 error: 'Something went wrong Deleting User from Game',
+                 message: err
+            })
+            console.log(err + 'Backend error')
         })
 })
 
