@@ -66,6 +66,7 @@ router.get('/game-detail/:id', isLoggedIn, (req, res) => {
     GamesModel.findById(id)
     .populate('User')
      .then((response) => {
+         console.log('Game response:  ' + response)
           res.status(200).json(response)
      })
      .catch((err) => {
@@ -104,7 +105,7 @@ router.get('/join-game/:id', isLoggedIn, (req, res) => {
 
  //CREATE TEAM
  router.post('/:id/save-team', isLoggedIn, (req, res) => {
-     console.log(res + 'router RESSS!')
+    //  console.log(res + 'router RESSS!')
      let gameId = req.params.id
      let user = req.session.loggedInUser
      const {teamName} = req.body;
@@ -130,7 +131,6 @@ router.get('/join-game/:id', isLoggedIn, (req, res) => {
                     message: err
                     
                })
-               console.log(err + 'SOMETHING WITH THE ROUTER')
           })
       })
  })
@@ -150,6 +150,23 @@ router.get('/teams', isLoggedIn, (req, res) => {
           })
 })         
 
+})
+
+router.post('/quit-team/:id', isLoggedIn, (req, res) => {
+    let id = req.params.id
+    let user = req.session.loggedInUser._id
+    console.log(id, user)
+    TeamsModel.findByIdAndUpdate(id, {$pull: {players : [user]}})
+        .then((response)=> {
+            // console.log(newTeam + '  NewTEAM!!!!')
+            res.status(200).json(response)
+        })
+        .catch((err) => {
+            res.status(500).json({
+                 error: 'Something went wrong Deleting User from Team',
+                 message: err
+            })
+        })
 })
 
 module.exports = router;
