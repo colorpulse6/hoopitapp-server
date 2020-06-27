@@ -8,7 +8,22 @@ let TeamsModel = require('../models/Teams.model')
 const { isLoggedIn } = require('../helpers/auth-helper'); // to check if user is loggedIn
 
 
-//Main User Page
+//GET GAMES MAIN
+router.get('/main', (req, res) => {
+    GamesModel.find()
+         .then((games) => {
+            //  console.log('games: ' + games)
+              res.status(200).json(games)
+         })
+         .catch((err) => {
+              res.status(500).json({
+                   error: 'Something went wrong main',
+                   message: err
+              })
+    })         
+})
+
+//GET GAMES USER-MAIN
 router.get('/user-main', (req, res) => {
     GamesModel.find()
          .then((games) => {
@@ -51,6 +66,7 @@ router.post('/create-game', isLoggedIn, (req, res) => {
           .then((response) => {
             // console.log(response.players.length)
                res.status(200).json(response)
+               
           })
           .catch((err) => {
                res.status(500).json({
@@ -169,6 +185,43 @@ router.post('/quit-team/:id', isLoggedIn, (req, res) => {
         })
 })
 
+//DISBAND TEAM
+router.delete('/disband-team/:id', isLoggedIn, (req, res) => {
+    let id = req.params.id
+    let userId = req.session.loggedInUser._id
+    // console.log(id, user)
+    TeamsModel.findByIdAndDelete(id)
+        .then((response)=> {
+            console.log(response + '  Team deleted!!!!')
+            res.status(200).json(response)
+        })
+        .catch((err) => {
+            res.status(500).json({
+                 error: 'Something went wrong Deleting User from Team',
+                 message: err
+            })
+        })
+})
+
+//GET EACH TEAM
+router.get('/each-team/:teamId', isLoggedIn, (req, res) => {
+    let teamId = req.params.teamId
+    let userId = req.session.loggedInUser._id
+    console.log(teamId)
+    TeamsModel.findById(teamId)
+    .populate('players')
+        .then((response)=> {
+            console.log(response + '  Team Got!!!!')
+            res.status(200).json(response)
+        })
+        .catch((err) => {
+            res.status(500).json({
+                 error: 'Something went wrong getting each Team',
+                 message: err
+            })
+        })
+})
+
 //QUIT GAME
 router.get('/quit-game/:id', isLoggedIn, (req, res) => {
     let id = req.params.id
@@ -176,7 +229,7 @@ router.get('/quit-game/:id', isLoggedIn, (req, res) => {
     // console.log(id, user)
     GamesModel.update({_id: id}, {$pull: {players : userId}})
         .then((response)=> {
-             console.log(newGame + '  New Game!!!!')
+            //  console.log(newGame + '  New Game!!!!')
             res.status(200).json(response)
         })
         .catch((err) => {
@@ -185,6 +238,28 @@ router.get('/quit-game/:id', isLoggedIn, (req, res) => {
                  message: err
             })
             console.log(err + 'Backend error')
+        })
+})
+
+//EDIT PROFILE
+router.post('/edit-profile/:id', isLoggedIn, (req, res) => {
+    let id = req.params.id
+    let userId = req.session.loggedInUser._id
+    const {username, location} = req.body;
+    // console.log(id, user)
+    UserModel.update({_id: userId}, {$set: { 
+        username: username,
+        location:location
+      }})
+        .then((response)=> {
+            console.log(response + '  EDIted profile')
+            res.status(200).json(response)
+        })
+        .catch((err) => {
+            res.status(500).json({
+                 error: 'Something went wrong Editing profile',
+                 message: err
+            })
         })
 })
 

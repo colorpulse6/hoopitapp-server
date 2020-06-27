@@ -40,7 +40,7 @@ router.post('/sign-up', (req, res) => {
 
     bcrypt.genSalt(12)
       .then((salt) => {
-        console.log('Salt: ', salt);
+        // console.log('Salt: ', salt);
         bcrypt.hash(password, salt)
           .then((passwordHash) => {
             UserModel.create({email, username, passwordHash, location, gamesCreated, gamesPlayed, teams, imgUrl})
@@ -101,7 +101,7 @@ router.post('/sign-in', (req, res) => {
                   // req.session is the special object that is available to you
                   userData.passwordHash = "***";
                   req.session.loggedInUser = userData;
-                  console.log('Signin', req.session)
+                  // console.log('Signin', req.session)
                   res.status(200).json(userData)
                 }
                 //if passwords do not match
@@ -140,7 +140,7 @@ router.post('/logout', (req, res) => {
 //NEEDED FOR REFRESHING PAGE AND KEEPING STATE
 router.get("/user", isLoggedIn, (req, res, next) => {
   res.status(200).json(req.session.loggedInUser);
-  console.log(res)
+  // console.log(res)
 });
 
   module.exports = router;

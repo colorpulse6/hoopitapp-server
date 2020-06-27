@@ -9,6 +9,7 @@ let MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/hoopitap
 
 mongoose.connect(MONGODB_URI, configOptions)
     .then(() => {
+        
         console.log('Database is connected, happy hooping!');
     })
     .catch(() => {
