@@ -53,16 +53,15 @@ router.get('/user-main', (req, res) => {
 })
 })
 
-//Question: How will this get the data from the route on client side?
-
 
 
 //Create Game
 router.post('/create-game', isLoggedIn, (req, res) => {  
     let user = req.session.loggedInUser
-    const {date, location, maxPlayers} = req.body;
-    // console.log(req.session.loggedInUser)
-    GamesModel.create({createdBy: user.username, date: date, location: location, maxPlayers: maxPlayers, players: [user._id], completed: false})
+    const {date, time, location, city, lat, lng, maxPlayers, players} = req.body;
+    // console.log(players)
+    console.log(req.body)
+    GamesModel.create({createdBy: user.username, date: date, time: time, location: location, city: city, lat: lat, lng: lng, maxPlayers: maxPlayers, players: players, completed: false})
           .then((response) => {
             // console.log(response.players.length)
                res.status(200).json(response)
@@ -134,7 +133,7 @@ router.get('/join-game/:id', isLoggedIn, (req, res) => {
                 homeTown: user.location,
                 players: game.players
             })
-            // .populate('User')
+           
         .then((response) => {
             console.log('TEAMS MODEL' + response)
             // console.log(response.players.length)
