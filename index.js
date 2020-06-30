@@ -76,10 +76,10 @@ app.use(bodyParser.json()) //crucial for post requests from client
 
 //Register routes
 const routes = require('./routes/routes');
-app.use('/', routes);
+app.use('/api', routes);
 
 const authRoutes = require('./routes/auth.routes')
-app.use('/', authRoutes);
+app.use('/api', authRoutes);
 
 
 //FOR IMAGE UPLOADS
