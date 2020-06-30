@@ -101,6 +101,7 @@ app.use((req, res, next) => {
   res.sendFile(__dirname + "/public/index.html");
 });
 
+//HEROKU PORT
 app.listen(process.env.PORT || 5000, '0.0.0.0', () => {
     console.log('Server is running')
 })
