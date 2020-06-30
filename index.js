@@ -71,7 +71,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json()) //crucial for post requests from client
 
-
+app.use(express.static(path.join(__dirname, 'public')));
 
 
 //Register routes
@@ -101,6 +101,6 @@ app.use((req, res, next) => {
   res.sendFile(__dirname + "/public/index.html");
 });
 
-app.listen(process.env.PORT || 5000, '0.0.0.0', () => {
+app.listen(5000, '0.0.0.0', () => {
     console.log('Server is running')
 })
