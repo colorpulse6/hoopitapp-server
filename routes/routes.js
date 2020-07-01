@@ -221,6 +221,23 @@ router.get('/each-team/:teamId', isLoggedIn, (req, res) => {
         })
 })
 
+//CANCEL GAME
+router.delete('/:id/admin/cancel-game', isLoggedIn, (req, res) => {
+    let id = req.params.id
+    // console.log(id, user)
+    GamesModel.findByIdAndDelete(id)
+        .then((response)=> {
+            console.log(response + '  Game deleted!!!!')
+            res.status(200).json(response)
+        })
+        .catch((err) => {
+            res.status(500).json({
+                 error: 'Something went wrong Deleting  Game',
+                 message: err
+            })
+        })
+})
+
 //QUIT GAME
 router.get('/quit-game/:id', isLoggedIn, (req, res) => {
     let id = req.params.id
