@@ -61,7 +61,7 @@ router.post('/create-game', isLoggedIn, (req, res) => {
     const {date, time, location, city, lat, lng, maxPlayers, players} = req.body;
     // console.log(players)
     console.log(req.body)
-    GamesModel.create({createdBy: user.username, date: date, time: time, location: location, city: city, lat: lat, lng: lng, maxPlayers: maxPlayers, players: players, completed: false})
+    GamesModel.create({createdBy: user.username, date: date, time: time, location: location, city: city, lat: lat, lng: lng, maxPlayers: maxPlayers, players: players, completed: false, savedAsTeam: undefined})
           .then((response) => {
             // console.log(response.players.length)
                res.status(200).json(response)
@@ -124,8 +124,13 @@ router.get('/join-game/:id', isLoggedIn, (req, res) => {
      let gameId = req.params.id
      let user = req.session.loggedInUser
      const {teamName} = req.body;
-     GamesModel.findById(gameId)
+     
+     GamesModel.findByIdAndUpdate(gameId, {$set: { 
+        savedAsTeam: teamName
+      }})
       .then((game) => {
+        
+       
         TeamsModel.create(
             {
                 owner: user.username,
@@ -243,7 +248,7 @@ router.get('/quit-game/:id', isLoggedIn, (req, res) => {
     let id = req.params.id
     let userId = req.session.loggedInUser._id
     // console.log(id, user)
-    GamesModel.update({_id: id}, {$pull: {players : userId}})
+    GamesModel.update({_id: id}, {$pull: {players : userId}}, {$unset:  {savedAsTeam: undefined}})
         .then((response)=> {
             //  console.log(newGame + '  New Game!!!!')
             res.status(200).json(response)

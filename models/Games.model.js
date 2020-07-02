@@ -13,7 +13,8 @@ let GameSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
       }],
-    maxPlayers: Number
+    maxPlayers: Number,
+    savedAsTeam: String
 })
 
 let GamesModel = mongoose.model('Game', GameSchema)
