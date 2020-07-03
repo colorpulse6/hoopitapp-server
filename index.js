@@ -11,11 +11,16 @@ require("dotenv").config();
 
 
 //CONFIGURE WEBSOCKETS
+const PORT = 3030;
+const INDEX = '/public/index.html';
 
+const server = express()
+  .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
+  .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
 const WebSocket = require('ws');
 
-const wss = new WebSocket.Server({ port: 3030 });
+const wss = new WebSocket.Server({ server });
 
 wss.on('connection', function connection(ws) {
   
