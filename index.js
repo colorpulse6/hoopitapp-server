@@ -1,39 +1,95 @@
 const express = require('express')
 const app = express()
+const http = require('http').Server(app);
+
+
 //ensure database is connected
 var path = require('path');
 require('./config/database.config')
 const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
-let MessageModel = require('./models/Message.Model')
-
+let Message = require('./models/Message.Model')
 require("dotenv").config();
+const router = express.Router()
 
 
-//CONFIGURE WEBSOCKETS
-const PORT = 3030;
-const INDEX = '/public/index.html';
+const io = require('socket.io')(http);
 
-const server = express()
-  .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
-  .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
-const WebSocket = require('ws');
 
-const wss = new WebSocket.Server({ server });
+// //CONFIGURE WEBSOCKETS
+// const PORT = 3030;
+// const INDEX = '/public/index.html';
 
-wss.on('connection', function connection(ws) {
+// const server = express()
+//   .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
+//   .listen(PORT, () => console.log(`Listening on ${PORT}`));
+
+// const WebSocket = require('ws');
+
+// const wss = new WebSocket.Server({ server });
+
+// wss.on('connection', function connection(ws) {
   
-  ws.on('message', function incoming(data) {
+//   ws.on('message', function incoming(data) {
     
-    wss.clients.forEach(function each(client) {
-      if (client !== ws && client.readyState === WebSocket.OPEN) {
+//     wss.clients.forEach(function each(client) {
+//       if (client !== ws && client.readyState === WebSocket.OPEN) {
 
-        client.send(data);
+//         client.send(data);
 
-      }
-    });
+//       }
+//     });
+//   });
+// });
+
+
+
+// SOCKET.IO
+const port = process.env.PORT || 5001;
+
+io.on('connection', (socket) => {
+
+  socket.on('room', function(room) {
+    socket.join(room);
   });
+
+  // Get the last 10 messages from the database.
+  router.get('/each-team/:teamId', (req, res) =>
+   {
+    let id = req.params.id
+    Message.find({team: 'id'}).sort({createdAt: -1}).limit(10).exec((err, messages) => {
+      if (err) return console.error(err);
+  
+      // Send the last messages to the user.
+      socket.emit('init', messages);
+    });
+   })
+ 
+
+  // Listen to connected users for a new message.
+  socket.on('message', (msg) => {
+    // Create a message with the content and the name of the user.
+    const message = new Message({
+      content: msg.content,
+      name: msg.name,
+      team: msg.team
+    });
+
+    // Save the message to the database.
+    message.save((err) => {
+      if (err) return console.error(err);
+    });
+
+    // Notify all other users about a new message.
+    socket.in(msg.team).emit('push', msg);
+    console.log(msg.team)
+  });
+});
+
+
+http.listen(port, () => {
+  console.log('listening on *:' + port);
 });
 
 

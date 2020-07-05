@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1", 
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node index.js"
   },
   "repository": {
@@ -32,6 +32,7 @@
     "multer": "^1.4.2",
     "multer-storage-cloudinary": "^4.0.0",
     "nodemon": "^2.0.4",
+    "socket.io": "^2.3.0",
     "ws": "^7.3.0"
   }
 }
