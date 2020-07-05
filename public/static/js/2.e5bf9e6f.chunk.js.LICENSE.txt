@@ -37,6 +37,13 @@ object-assign
 */
 
 /*!
+ * The buffer module from node.js, for the browser.
+ *
+ * @author   Feross Aboukhadijeh <http://feross.org>
+ * @license  MIT
+ */
+
+/*!
  * jQuery JavaScript Library v3.5.1
  * https://jquery.com/
  *
@@ -48,6 +55,16 @@ object-assign
  * https://jquery.org/license
  *
  * Date: 2020-05-04T22:49Z
+ */
+
+/*! https://mths.be/utf8js v2.1.2 by @mathias */
+
+/**
+ * A better abstraction over CSS.
+ *
+ * @copyright Oleg Isonen (Slobodskoi) / Isonen 2014-present
+ * @website https://github.com/cssinjs/jss
+ * @license MIT
  */
 
 /** @license React v0.19.1
