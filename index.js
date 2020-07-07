@@ -45,7 +45,7 @@ const router = express.Router()
 
 
 // SOCKET.IO
-const io = require('socket.io')(app.listen(process.env.PORT || 5001));
+const io = require('socket.io')(app.listen(process.env.REACT_APP_SOCKET_URL));
 
 const port = process.env.REACT_APP_SOCKET_URL || 5001;
 
