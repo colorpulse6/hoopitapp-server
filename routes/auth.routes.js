@@ -15,25 +15,23 @@ router.post('/sign-up', (req, res) => {
     if (!username || !email || !password || !location) {
         res.status(500)
           .json({
-            errorMessage: 'Please enter username, email, city and password'
+            error: 'Please enter username, email, city and password'
           });
         return;  
     }
 
     const myRegex = new RegExp(/^[a-z0-9](?!.*?[^\na-z0-9]{2})[^\s@]+@[^\s@]+\.[^\s@]+[a-z0-9]$/);
     if (!myRegex.test(email)) {
-        res.status(500)
-          .json({
-            errorMessage: 'Email format not correct'
+        res.status(500).json({
+            error: 'Email format not correct'
         });
         return;  
     }
 
     const myPassRegex = new RegExp(/^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#\$%\^&\*])(?=.{8,})/);
     if (!myPassRegex.test(password)) {
-      res.status(500)
-          .json({
-            errorMessage: 'Password needs to have 8 characters, a number and an Uppercase alphabet'
+      res.status(500).json({
+            error: 'Password needs to have 8 characters, a number and an Uppercase alphabet'
           });
         return;  
     }
@@ -57,14 +55,14 @@ router.post('/sign-up', (req, res) => {
                 if (err.code === 11000) {
                   res.status(500)
                   .json({
-                    errorMessage: 'username or email entered already exists!'
+                    error: 'username or email entered already exists!'
                   });
                   return;  
                 } 
                 else {
                   res.status(500)
                   .json({
-                    errorMessage: 'Something went wrong! Go to sleep!'
+                    error: 'Something went wrong! Go to sleep!'
                   });
                   return; 
                 }
@@ -79,7 +77,9 @@ router.post('/sign-in', (req, res) => {
     if ( !email || !password) {
         res.status(500).json({
             error: 'Please enter Username. email and password',
+            
        })
+       
       return;  
     }
     const myRegex = new RegExp(/^[a-z0-9](?!.*?[^\na-z0-9]{2})[^\s@]+@[^\s@]+\.[^\s@]+[a-z0-9]$/);
