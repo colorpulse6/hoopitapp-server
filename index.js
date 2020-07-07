@@ -13,7 +13,6 @@ require("dotenv").config();
 const router = express.Router()
 
 
-const io = require('socket.io')(app.listen(process.env.PORT || 5001));
 
 
 
@@ -46,6 +45,8 @@ const io = require('socket.io')(app.listen(process.env.PORT || 5001));
 
 
 // SOCKET.IO
+const io = require('socket.io')(app.listen(process.env.PORT || 5001));
+
 const port = process.env.REACT_APP_SOCKET_URL || 5001;
 
 io.on('connection', (socket) => {
