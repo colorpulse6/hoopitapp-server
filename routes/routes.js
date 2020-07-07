@@ -4,8 +4,21 @@ const router = express.Router()
 let GamesModel = require('../models/Games.model')
 let UserModel = require('../models/User.model')
 let TeamsModel = require('../models/Teams.model')
+let Message = require('../models/Message.Model')
 
 const { isLoggedIn } = require('../helpers/auth-helper'); // to check if user is loggedIn
+
+
+router.get('/team-messages/:teamId', (req, res) =>
+   {
+    let id = req.params.teamId
+    Message.find({team: id}).sort({createdAt: -1}).limit(10).exec((err, messages) => {
+      if (err) return console.error(err);
+        res.status(200).json(messages)
+      // Send the last messages to the user.
+    //   socket.emit('init', messages);
+    });
+   })
 
 
 //GET GAMES MAIN
