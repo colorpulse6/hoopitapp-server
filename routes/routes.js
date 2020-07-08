@@ -66,6 +66,21 @@ router.get('/user-main', (req, res) => {
 })
 })
 
+//GET USER
+router.get('/user', (req, res) => {
+    let userId = req.session.loggedInUser._id
+
+    UserModel.findById(userId)
+    .then((user) => {
+        res.status(200).json(user)
+    })
+    .catch((err) => {
+        res.status(500).json({
+             error: 'Something went wrong users',
+             message: err
+        })
+})
+})
 
 
 //Create Game
@@ -280,10 +295,9 @@ router.post('/edit-profile/:id', isLoggedIn, (req, res) => {
     let id = req.params.id
     let userId = req.session.loggedInUser._id
     const {username, location} = req.body;
-    // console.log(id, user)
     UserModel.update({_id: userId}, {$set: { 
         username: username,
-        location:location
+        location:location,
       }})
         .then((response)=> {
             console.log(response + '  EDIted profile')
@@ -296,5 +310,25 @@ router.post('/edit-profile/:id', isLoggedIn, (req, res) => {
             })
         })
 })
+
+//EDIT PROFILE PIC
+router.patch("/edit-profile-pic", isLoggedIn, (req, res) => {
+    const { profileImg } = req.body
+    let userId = req.session.loggedInUser._id
+    console.log(profileImg)
+  
+    UserModel.findByIdAndUpdate(userId, { imageUrl: profileImg })
+      .then((response) => {
+        res.status(200).json(response);
+      })
+      .catch((err) => {
+        console.log(err);
+        res.status(500).json({
+          error: "Something went wrong",
+          message: err,
+        })
+      });
+  })
+  
 
 module.exports = router;

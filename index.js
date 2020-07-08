@@ -45,14 +45,14 @@ const router = express.Router()
 
 
 // SOCKET.IO
-const server = app.listen(process.env.PORT || 5000, () => {
-  console.log('Server is running on ',process.env.PORT)
-})
+// const server = app.listen(process.env.PORT || 5000, () => {
+//   console.log('Server is running on ',process.env.PORT)
+// })
 
 
 const port = process.env.REACT_APP_SOCKET_URL || 5001;
-const io = require('socket.io')(server);
-io.on('connection', (socket) => {
+const io = require('socket.io')(port);
+io.on('connection', (port) => {
 
   socket.on('room', function(room) {
     socket.join(room);
@@ -95,6 +95,7 @@ app.use(cors({
     origin: ['http://localhost:3000']
 }))
 
+//MONGO STORE
 let MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/hoopitapp'
 app.use(
   session({
@@ -139,14 +140,15 @@ const authRoutes = require('./routes/auth.routes')
 app.use('/api', authRoutes);
 
 
-//FOR IMAGE UPLOADS
-// const fileUploads = require('./routes/file-upload.routes')
-// app.use('/', fileUploads)
+// FOR IMAGE UPLOADS
+const fileUploads = require('./routes/file-upload.routes')
+app.use('/api', fileUploads)
 
-// app.use((req, res, next) => {
-//   // If no routes match, send them the React HTML.
-//   res.sendFile(__dirname + "/public/index.html");
-// });
+app.use((req, res, next) => {
+  // If no routes match, send them the React HTML.
+  res.sendFile(__dirname + "/public/index.html");
+});
+
 
 //Start the server to begin listening on a port
 // make sure you don't run it on port 3000 because 
@@ -159,6 +161,6 @@ app.use((req, res, next) => {
 });
 
 //HEROKU PORT
-// app.listen(process.env.PORT || 5000, '0.0.0.0', () => {
-//     console.log('Server is running')
-// })
+app.listen(process.env.PORT || 5000, '0.0.0.0', () => {
+    console.log('Server is running')
+})
