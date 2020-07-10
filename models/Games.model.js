@@ -14,7 +14,8 @@ let GameSchema = new mongoose.Schema({
         ref: 'User'
       }],
     maxPlayers: Number,
-    savedAsTeam: String
+    savedAsTeam: String,
+    imageUrl: String
 })
 
 let GamesModel = mongoose.model('Game', GameSchema)

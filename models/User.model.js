@@ -19,6 +19,8 @@ const userSchema = new Schema(
     gamesCreated: Number,
     gamesPlayed: Number,
     teams: [String],
+    lat: Number,
+    lng: Number
   },
   {
     timestamps: true

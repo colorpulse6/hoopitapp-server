@@ -45,13 +45,13 @@ const router = express.Router()
 
 
 // SOCKET.IO
-const server = app.listen(process.env.PORT || 5000, () => {
-  console.log('Server is running on ',process.env.PORT)
-})
+// const server = app.listen(process.env.PORT || 5000, () => {
+//   console.log('Server is running on ',process.env.PORT)
+// })
 
 
 const port = process.env.REACT_APP_SOCKET_URL || 5001;
-const io = require('socket.io')(server);
+const io = require('socket.io')(port);
 io.on('connection', (socket) => {
 
   socket.on('room', function(room) {
@@ -67,7 +67,8 @@ io.on('connection', (socket) => {
     const message = new Message({
       content: msg.content,
       name: msg.name,
-      team: msg.team
+      team: msg.team,
+      imageUrl: msg.imageUrl
     });
 
     // Save the message to the database.
@@ -160,7 +161,7 @@ app.use((req, res, next) => {
   res.sendFile(__dirname + "/public/index.html");
 });
 
-// //HEROKU PORT
-// app.listen(process.env.PORT || 5000, '0.0.0.0', () => {
-//     console.log('Server is running')
-// })
+//HEROKU PORT
+app.listen(process.env.PORT || 5000, '0.0.0.0', () => {
+    console.log('Server is running')
+})

@@ -9,8 +9,8 @@ const UserModel = require('../models/User.model');
 const { isLoggedIn } = require('../helpers/auth-helper'); // to check if user is loggedIn
 
 router.post('/sign-up', (req, res) => {
-    const {username, email, password, location, gamesCreated, gamesPlayed, teams, imgUrl } = req.body;
-    console.log(username, email, password, location, gamesCreated, gamesPlayed, teams, imgUrl);
+    const {username, email, password, location, gamesCreated, gamesPlayed, teams, imgUrl, lat, lng } = req.body;
+    console.log(username, email, password, location, gamesCreated, gamesPlayed, teams, imgUrl, lat, lng);
  
     if (!username || !email || !password || !location) {
         res.status(500)
@@ -41,7 +41,7 @@ router.post('/sign-up', (req, res) => {
         // console.log('Salt: ', salt);
         bcrypt.hash(password, salt)
           .then((passwordHash) => {
-            UserModel.create({email, username, passwordHash, location, gamesCreated, gamesPlayed, teams, imgUrl})
+            UserModel.create({email, username, passwordHash, location, gamesCreated, gamesPlayed, teams, imgUrl, lat, lng})
               .then((user) => {
                 user.passwordHash = "***";
                 //SET SESSION

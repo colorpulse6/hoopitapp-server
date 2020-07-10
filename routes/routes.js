@@ -86,10 +86,10 @@ router.get('/user', (req, res) => {
 //Create Game
 router.post('/create-game', isLoggedIn, (req, res) => {  
     let user = req.session.loggedInUser
-    const {date, time, location, city, lat, lng, maxPlayers, players} = req.body;
+    const {date, time, location, city, lat, lng, maxPlayers, players, imageUrl} = req.body;
     // console.log(players)
     console.log(req.body)
-    GamesModel.create({createdBy: user.username, date: date, time: time, location: location, city: city, lat: lat, lng: lng, maxPlayers: maxPlayers, players: players, completed: false, savedAsTeam: undefined})
+    GamesModel.create({createdBy: user.username, date: date, time: time, location: location, city: city, lat: lat, lng: lng, maxPlayers: maxPlayers, players: players, completed: false, savedAsTeam: undefined, imageUrl: imageUrl})
           .then((response) => {
             // console.log(response.players.length)
                res.status(200).json(response)
@@ -165,6 +165,7 @@ router.get('/join-game/:id', isLoggedIn, (req, res) => {
                 teamName: teamName, 
                 homeTown: user.location,
                 players: game.players
+                
             })
            
         .then((response) => {
@@ -294,10 +295,12 @@ router.get('/quit-game/:id', isLoggedIn, (req, res) => {
 router.post('/edit-profile/:id', isLoggedIn, (req, res) => {
     let id = req.params.id
     let userId = req.session.loggedInUser._id
-    const {username, location} = req.body;
+    const {username, location, lat, lng} = req.body;
     UserModel.update({_id: userId}, {$set: { 
         username: username,
         location:location,
+        lat: lat,
+        lng:lng
       }})
         .then((response)=> {
             console.log(response + '  EDIted profile')

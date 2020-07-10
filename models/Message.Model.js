@@ -4,7 +4,8 @@ const messageSchema = new mongoose.Schema({
   content: String,
   name: String,
   team: String,
-  roomId: String
+  roomId: String,
+  imageUrl: String
 }, {
   timestamps: true,
 });
