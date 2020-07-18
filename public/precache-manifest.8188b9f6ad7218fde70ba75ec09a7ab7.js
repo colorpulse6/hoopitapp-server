@@ -1,27 +1,27 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "a2f26010ff142dde51e400710efd2163",
+    "revision": "89b899e3d2113a9f29350d77555c5c5c",
     "url": "/index.html"
   },
   {
-    "revision": "5e9165c4c6fc69d3613c",
+    "revision": "4e7af93b39443ee79309",
     "url": "/static/css/2.f63d27b6.chunk.css"
   },
   {
-    "revision": "f99a6707f290ef910214",
-    "url": "/static/css/main.b8d8bdea.chunk.css"
+    "revision": "8cdb7e1c5ea9fe7d3517",
+    "url": "/static/css/main.08453151.chunk.css"
   },
   {
-    "revision": "5e9165c4c6fc69d3613c",
-    "url": "/static/js/2.7b9c698c.chunk.js"
+    "revision": "4e7af93b39443ee79309",
+    "url": "/static/js/2.928b432b.chunk.js"
   },
   {
     "revision": "e7cca9ffa2e0c9787cc02afadcd7f5a7",
-    "url": "/static/js/2.7b9c698c.chunk.js.LICENSE.txt"
+    "url": "/static/js/2.928b432b.chunk.js.LICENSE.txt"
   },
   {
-    "revision": "f99a6707f290ef910214",
-    "url": "/static/js/main.d4de156d.chunk.js"
+    "revision": "8cdb7e1c5ea9fe7d3517",
+    "url": "/static/js/main.a492e09a.chunk.js"
   },
   {
     "revision": "308cdd577e304632fd8a",
@@ -34,6 +34,10 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
     "revision": "7a97933b98210954b19931292ae309b2",
     "url": "/static/media/hoopitapp-logo.7a97933b.png"
+  },
+  {
+    "revision": "5903c8192c5f4a654933678c86a37a6d",
+    "url": "/static/media/lonely-court.5903c819.jpg"
   },
   {
     "revision": "5163d59fc7090534431e6105f121ad8e",
