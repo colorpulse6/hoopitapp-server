@@ -1,21 +1,19 @@
 # hoopitApp
 
 ## Description
-Organize basketball games in your city
+Hoop.It.App is a web and mobile app that allows you to organize basketball games in your city and build teams with your friends.  It is build using react, express and node.js with bcrypt for authentication.  This project represents my first full react project and extends the knowledge from my 2nd project by making use of complex models, routes and multiple user types.  I also took this opportunity to learn Socket.io for the chat function and the Google Maps API and Google Maps Places API.  For extra practice I used both hooks as well as classes for state management and several forms of promise collection.  I also utilized the Cloudinary storage service for image uploading, Zeplin.io for wireframe construction and style implamentation as well as Lottie for the loading GIF creation.
 
 ## User Stories
 
-- **404:** As an anon/user I can see a 404 page if I try to reach a page that does not exist so that I know it's my fault
-- **See Court Map** As an anon I can search for courts in my city that have been added by users
+- **See Court Map** As an anon I can see example games in my city that have been added by users
 - **Signup** As an anon I can sign up to the platform and create my account
 - **Login** As a user I can login to my account
 - **Logout** As a user I can log out of my account
 - **Create a Game** As a user I can create a new basketball game
-- **Join a Game** As a user I can join an existing game
-- **Create a New Team** As a user I can create a new team
-- **Join an Existing Team** As a user I can join an existing team
+- **Create a New Team** As a user-game-admin I can create a new team with the players in my game
 - **Edit Game** As a user I can edit my games' members, location, date, and the winner of the game
 - **Edit Profile** As a user I can edit my profile 
+- **Chat** As a user I chat with members of my team 
 
 ## Backlog
 
@@ -27,9 +25,6 @@ Calender:
 
 Forum:
 - Communicate with other players to organize games via  a forum
-
-Chat:
-- Communicate with other players to organize games via  a chat implementation
 
 Tournaments:
 - Enable users to build their own tournaments 
@@ -118,6 +113,8 @@ location - String
 gamesCreated - Number
 gamesPlayed - Number
 teams - [ObjectId<Team>]
+lat - Number
+lng - Number
 ```
 
 Games Model
@@ -127,9 +124,30 @@ createdBy - [ObjectId<User>]
 date - String
 location - String
 players - [ObjectId<User>]
+lat - Number
+lng - Number
+city - String
+maxPlayers - Number
+savedAsTeam - String
+imageurl - String
 ```
 
 Teams Model
+
+```
+owner - [ObjectId<User>]
+teamName - String
+players - [ObjectId<Users>]
+homeTown - String
+gamesPlayed - Number
+```
+
+Message Model
+content - String
+name - String
+team - String
+roomId - String
+imageUrl - String
 
 ```
 owner - [ObjectId<User>]
@@ -205,10 +223,14 @@ gamesPlayed - Number
 [https://github.com/colorpulse6/hoopitapp]
 
 ### Deployment
-
+[https://hoopitapp.herokuapp.com/]
 
 ### Slides
 [https://docs.google.com/presentation/d/1ITWaidwNwHyAy3hsINt5oreKjPL4oQH-_L3dVBlzcZs/edit?usp=sharing]
+
+
+
+
 
 
 

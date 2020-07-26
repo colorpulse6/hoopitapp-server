@@ -11,8 +11,6 @@ router.post("/upload-img", uploader.single("imageUrl"), (req, res, next) => {
     return;
   }
   res.json({ secure_url: req.file.path });
-  
 });
-
 
 module.exports = router;

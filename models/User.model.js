@@ -1,18 +1,18 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model } = require("mongoose");
 
 const userSchema = new Schema(
   {
-     username: {
-       type: String,
-       required: [true, 'Please enter username']
-     }, 
-     email: {
+    username: {
       type: String,
-      required: [true, 'Please enter email']
+      required: [true, "Please enter username"],
     },
-     passwordHash: {
+    email: {
       type: String,
-      required: true
+      required: [true, "Please enter email"],
+    },
+    passwordHash: {
+      type: String,
+      required: true,
     },
     imageUrl: String,
     location: String,
@@ -20,12 +20,12 @@ const userSchema = new Schema(
     gamesPlayed: Number,
     teams: [String],
     lat: Number,
-    lng: Number
+    lng: Number,
   },
   {
-    timestamps: true
+    timestamps: true,
   }
 );
-userSchema.index({ 'email': 1}, {unique: true});
-userSchema.index({ 'username': 1}, {unique: true});
- module.exports = model('User', userSchema);
+userSchema.index({ email: 1 }, { unique: true });
+userSchema.index({ username: 1 }, { unique: true });
+module.exports = model("User", userSchema);
