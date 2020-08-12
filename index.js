@@ -38,12 +38,12 @@ const router = express.Router();
 // });
 
 // SOCKET.IO
-// const server = app.listen(process.env.PORT || 5000, () => {
-//   console.log('Server is running on ',process.env.PORT || 5000)
-// })
+const server = app.listen(process.env.PORT || 5000, () => {
+  console.log('Server is running on ',process.env.PORT || 5000)
+})
 
-const port = process.env.REACT_APP_SOCKET_URL || 5001;
-const io = require("socket.io")(port);
+// const port = process.env.REACT_APP_SOCKET_URL || 5001;
+const io = require("socket.io")(server);
 io.on("connection", (socket) => {
   socket.on("room", function (room) {
     socket.join(room);
