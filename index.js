@@ -7,72 +7,11 @@ var path = require("path");
 require("./config/database.config");
 const session = require("express-session");
 const MongoStore = require("connect-mongo")(session);
-let Message = require("./models/Message.Model");
 require("dotenv").config();
 const router = express.Router();
 
-// //CONFIGURE WEBSOCKETS (NOT USED)
-// const PORT = 3030;
-// const INDEX = '/public/index.html';
 
-// const server = express()
-//   .use((req, res) => res.sendFile(INDEX, { root: __dirname }))
-//   .listen(PORT, () => console.log(`Listening on ${PORT}`));
 
-// const WebSocket = require('ws');
-
-// const wss = new WebSocket.Server({ server });
-
-// wss.on('connection', function connection(ws) {
-
-//   ws.on('message', function incoming(data) {
-
-//     wss.clients.forEach(function each(client) {
-//       if (client !== ws && client.readyState === WebSocket.OPEN) {
-
-//         client.send(data);
-
-//       }
-//     });
-//   });
-// });
-
-// SOCKET.IO
-const server = app.listen(process.env.PORT || 5000, () => {
-  console.log('Server is running on ',process.env.PORT || 5000)
-})
-
-// const port = process.env.REACT_APP_SOCKET_URL || 5001;
-const io = require("socket.io")(server);
-io.on("connection", (socket) => {
-  socket.on("room", function (room) {
-    socket.join(room);
-  });
-
-  // Listen to connected users for a new message.
-  socket.on("message", (msg) => {
-    // Create a message with the content and the name of the user.
-    const message = new Message({
-      content: msg.content,
-      name: msg.name,
-      team: msg.team,
-      imageUrl: msg.imageUrl,
-    });
-
-    // Save the message to the database.
-    message.save((err) => {
-      if (err) return console.error(err);
-    });
-
-    // Notify all other users about a new message.
-    socket.in(msg.team).emit("push", msg);
-    console.log(msg.team);
-  });
-});
-
-// http.listen(port, () => {
-//   console.log('listening on *:' + port);
-// });
 
 //CORS
 
