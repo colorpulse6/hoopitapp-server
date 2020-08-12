@@ -12,14 +12,14 @@ require("dotenv").config();
 const router = express.Router();
 
 // SOCKET.IO
-var socket = require('socket.io')
+
 // const server = app.listen(process.env.PORT || 4000, () => {
 //     console.log('Server is running on ',process.env.PORT || 4000)
 //   })
   
 
   const port = process.env.REACT_APP_SOCKET_URL || 5001;
-  const io = socket.listen(port);
+  const io = require('socket.io').listen(port);
   io.on("connection", (socket) => {
     socket.on("room", function (room) {
       socket.join(room);
