@@ -18,7 +18,7 @@ const router = express.Router();
 //   })
   
 
-  const port = process.env.REACT_APP_SOCKET_URL || 5000;
+  const port = process.env.REACT_APP_SOCKET_URL || 5001;
   const io = require('socket.io')(port);
   io.on("connection", (socket) => {
     socket.on("room", function (room) {
