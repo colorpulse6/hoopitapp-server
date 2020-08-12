@@ -1,14 +1,16 @@
 const express = require("express");
 let Message = require("./models/Message.Model");
 const app = express();
-const http = require("http").Server(app);
+// const http = require("http").Server(app);
+const router = express.Router();
 
 
 // SOCKET.IO
+var socket = require('socket.io')
 const server = app.listen(process.env.PORT || 4000, () => {
     console.log('Server is running on ', process.env.PORT || 5000)
   })
-  var socket = require('socket.io')
+  
 
   // const port = process.env.REACT_APP_SOCKET_URL || 5001;
   const io = socket(server);
@@ -41,3 +43,5 @@ const server = app.listen(process.env.PORT || 4000, () => {
   // http.listen(port, () => {
   //   console.log('listening on *:' + port);
   // });
+
+  module.exports = router;
