@@ -13,10 +13,13 @@ const router = express.Router();
 
 // SOCKET.IO
 
+// const server = app.listen(process.env.PORT || 5001, () => {
+//     console.log('Server is running on ',process.env.PORT || 4000)
+//   })
   
 
   // const port = process.env.REACT_APP_SOCKET_URL || 5001;
-  const io = require('socket.io').listen(server);
+  const io = require('socket.io').listen(5001);
   io.on("connection", (socket) => {
     socket.on("room", function (room) {
       socket.join(room);
@@ -119,9 +122,6 @@ app.use((req, res, next) => {
 });
 
 //HEROKU PORT
-// app.listen(process.env.PORT || 5000, "0.0.0.0", () => {
-//   console.log("Server is running");
-// });
-const server = app.listen(process.env.PORT || 5001, () => {
-  console.log('Server is running on ',process.env.PORT || 4000)
-})
+app.listen(process.env.PORT || 5000, "0.0.0.0", () => {
+  console.log("Server is running");
+});
