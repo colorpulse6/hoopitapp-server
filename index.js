@@ -84,6 +84,6 @@ app.use((req, res, next) => {
 });
 
 //HEROKU PORT
-// app.listen(process.env.PORT || 5000, "0.0.0.0", () => {
-//   console.log("Server is running");
-// });
+app.listen(process.env.PORT || 5000, "0.0.0.0", () => {
+  console.log("Server is running");
+});
