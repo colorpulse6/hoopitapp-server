@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-const http = require("http").Server(app);
+// const http = require("http").Server(app);
 let Message = require("./models/Message.Model");
 
 //ensure database is connected
@@ -13,8 +13,8 @@ const router = express.Router();
 
 // SOCKET.IO
 var socket = require('socket.io')
-const server = app.listen(4000, () => {
-    console.log('Server is running on ', 4000)
+const server = app.listen(process.env.PORT || 4000, () => {
+    console.log('Server is running on ',process.env.PORT || 4000)
   })
   
 
