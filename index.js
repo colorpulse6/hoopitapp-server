@@ -13,9 +13,6 @@ const router = express.Router();
 
 // SOCKET.IO
 
-const server = app.listen(process.env.PORT || 5001, () => {
-    console.log('Server is running on ',process.env.PORT || 4000)
-  })
   
 
   // const port = process.env.REACT_APP_SOCKET_URL || 5001;
@@ -125,3 +122,6 @@ app.use((req, res, next) => {
 // app.listen(process.env.PORT || 5000, "0.0.0.0", () => {
 //   console.log("Server is running");
 // });
+const server = app.listen(process.env.PORT || 5001, () => {
+  console.log('Server is running on ',process.env.PORT || 4000)
+})
