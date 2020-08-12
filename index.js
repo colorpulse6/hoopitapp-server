@@ -1,6 +1,6 @@
 const express = require("express");
 const app = express();
-// const http = require("http").Server(app);
+const http = require("http").Server(app);
 let Message = require("./models/Message.Model");
 
 //ensure database is connected
@@ -19,7 +19,7 @@ const router = express.Router();
   
 
   const port = process.env.REACT_APP_SOCKET_URL || 5001;
-  const io = require('socket.io').listen(port);
+  const io = require('socket.io')(port);
   io.on("connection", (socket) => {
     socket.on("room", function (room) {
       socket.join(room);
@@ -46,9 +46,9 @@ const router = express.Router();
     });
   });
   
-  // http.listen(port, () => {
-  //   console.log('listening on *:' + port);
-  // });
+  http.listen(port, () => {
+    console.log('listening on *:' + port);
+  });
 
 
 //CORS
