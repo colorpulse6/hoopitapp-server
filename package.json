@@ -33,6 +33,6 @@
     "multer-storage-cloudinary": "^4.0.0",
     "nodemon": "^2.0.4",
     "socket.io": "^2.3.0",
-    "ws": "^7.3.0"
+    "ws": "^7.4.6"
   }
 }
